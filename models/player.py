@@ -5,7 +5,7 @@ class Player:
         self.name = name
         self.has_played = False
 
-    def mask_as_played(self):
+    def mark_as_played(self):
         self.has_played = True
         
         
