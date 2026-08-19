@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ poem.title }} — finished</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Round robin poetry — finished</p>
+    <h1>{{ poem.title }}</h1>
+
+    <div class="poem-final">
+      {% for entry in poem.get_lines() %}{{ entry.text }}<span class="attr">— {{ entry.player }}</span>
+{% endfor %}
+    </div>
+
+    <a class="again" href="{{ url_for('setup') }}">Start a new poem</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ game.poem.title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Round robin poetry</p>
+    <p class="poem-title">"{{ game.poem.title }}"</p>
+
+    <div class="turn-banner">
+      It's <span class="who">{{ current.name }}</span>'s turn to write the next line.
+    </div>
+
+    {% if game.poem.get_lines() %}
+      <ul class="lines" id="lines">
+        {% for entry in game.poem.get_lines() %}
+          <li>{{ entry.text }}<span class="author">— {{ entry.player }}</span></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty" id="empty-msg">No lines yet. Be the first.</p>
+    {% endif %}
+
+    <div class="card">
+      <form action="{{ url_for('submit') }}" method="post" id="line-form">
+        <div class="field">
+          <label for="line">{{ current.name }}, write your line</label>
+          <textarea id="line" name="line" autofocus required></textarea>
+        </div>
+        <button type="submit">Add line</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById('line');
+    const form = document.getElementById('line-form');
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.submit();
+      }
+    });
+
+    setInterval(async () => 
+    {
+      const res = await fetch('/api/state');
+      const data = await res.json();
+      if (data.over) {
+        window.location.href = '/finished';
+        return;
+      }
+      if (data.lines.length !== {{ game.poem.get_lines() | length }} ||
+          data.current !== "{{ current.name }}") 
+          {
+        window.location.reload();
+      }
+    }, 2000);
+  </script>
+</body>
+</html>

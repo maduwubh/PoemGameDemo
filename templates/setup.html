@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Round Robin — start a poem</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Round robin poetry</p>
+    <h1>Start a poem</h1>
+    <p class="lede">Everyone gets one turn, chosen at random. Add your line, pass it on.</p>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <div class="card">
+      <form action="{{ url_for('start') }}" method="post">
+        <div class="field">
+          <label for="title">Poem title</label>
+          <input type="text" id="title" name="title" placeholder="An untitled thing" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="players">Players</label>
+          <input type="text" id="players" name="players" placeholder="Alice, Ben, Cara" autocomplete="off" required>
+          <p class="hint">Comma-separated names, at least 2 players.</p>
+        </div>
+        <button type="submit">Begin</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
