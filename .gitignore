@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+venv/
+.env
+
+#This was added to the .gitignore file to ignore the virtual environment folder and any compiled Python files.
