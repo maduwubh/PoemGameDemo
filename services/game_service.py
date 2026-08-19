@@ -56,6 +56,7 @@ class GameService:
         return self.current_player
 
     def _pick_next_player(self):
+        # Only players who haven't gone yet are eligible, so everyone gets exactly one turn and nobody repeats.
         remaining = [p for p in self.players if not p.has_played]
         if not remaining:
             return None
@@ -69,4 +70,8 @@ class GameService:
         self.current_player = self._pick_next_player()
 
     def is_over(self):
+        #The game only counts as "started" once start_game() has run, and it's over once there's no eligible player left to pick.
         return self.started and self.current_player is None
+    
+    def reset(self):
+        self.__init__()
