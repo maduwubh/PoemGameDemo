@@ -3,7 +3,7 @@ def print_title():
     print("       Welcome to the Poem Game")
     print("=" *50)
 
-def print_registeed_players(players):
+def print_registered_players(players):
     print("\nRegistered Players:\n")
     
     for index, player in enumerate(players, start=1):

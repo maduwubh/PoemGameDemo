@@ -1,6 +1,7 @@
 import random 
 
-class RandomSelector:
+class RandomSelector: 
+    # random selector..
     
     @staticmethod
     def select_random_item(players):
