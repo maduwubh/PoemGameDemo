@@ -4,8 +4,6 @@ from services.game_service import GameService
 
 app = Flask(__name__)
 
-# A single shared game in memory. The assignment only requires
-# supporting one poem/team at a time, so one global instance is enough.
 game = GameService()
 
 
